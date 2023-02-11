@@ -1,7 +1,8 @@
 const Router = require('express')
-const router = new Router()
-const userController = require('../controllers/userController')
+const router = new Router() //объект роутера
+const userController = require('../controllers/userController') //подгрудаем контроллер
 
+// прописываем пути
 router.post('/registration', userController.registration)
 router.post('/login',)
 router.get('/auth', userController.check)
