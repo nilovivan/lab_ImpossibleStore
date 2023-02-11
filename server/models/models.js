@@ -16,7 +16,7 @@ const Cart_product = sequelize.define('cart_product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
 
-const Product = sequelize.define('user_cart', {
+const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
@@ -27,8 +27,15 @@ const Product = sequelize.define('user_cart', {
 User.hasOne(User_cart)
 User_cart.belongsTo(User)
 
-Product.hasMany(Cart_product)
+Product.hasOne(Cart_product)
 Cart_product.belongsTo(Product)
 
 User_cart.hasMany(Cart_product)
 Cart_product.belongsTo(User_cart)
+
+module.exports = {
+    User,
+    User_cart,
+    Cart_product,
+    Product,
+}
