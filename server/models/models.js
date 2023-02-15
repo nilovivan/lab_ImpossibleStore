@@ -8,19 +8,19 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
-const User_cart = sequelize.define('basket', {
+const User_cart = sequelize.define('cart', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const Cart_product = sequelize.define('basket_device', {
+const Cart_product = sequelize.define('cart_product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const Product = sequelize.define('device', {
+const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
-    rating: {type: DataTypes.INTEGER, defaultValue: 0},
+    description: {type: DataTypes.TEXT, allowNull:false},
     img: {type: DataTypes.STRING, allowNull: false},
 })
 
