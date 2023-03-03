@@ -19,23 +19,31 @@ class ProductController {
         }
     }
 
-    async getAll(req, res) { //Получаем все товары на странице
+    async getAll(req, res, next) { //Получаем все товары на странице
         // Определяем количество товаров на странице, дефолт первая страница и лимит 9 товаров
-        let {limit, page} = req.query
-        page = page || 1
-        limit = limit || 9
-        let offset = page * limit - limit
-        let products;
-        products = await Product.findAndCountAll({limit, offset})
-        return res.json(products)
+        try {
+            let {limit, page} = req.query
+            page = page || 1
+            limit = limit || 9
+            let offset = page * limit - limit
+            let products;
+            products = await Product.findAndCountAll({limit, offset})
+            return res.json(products)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 
-    async getOne(req, res) { //получаем товар по айдишнику
-        const {id} = req.params
-        const product = await Product.findOne({
-            where: {id}
-        })
-        return res.json(product)
+    async getOne(req, res, next) { //получаем товар по айдишнику
+        try {
+            const {id} = req.params
+            const product = await Product.findOne({
+                where: {id}
+            })
+            return res.json(product)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 
     async remove(req, res, next) {
