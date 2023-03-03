@@ -7,6 +7,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {fetchDevices} from "../http/deviceAPI";
 import Pages from "../components/Pages";
+import { css } from '@emotion/css';
 
 const Shop = observer(() => {
     const {device} = useContext(Context)
@@ -19,13 +20,14 @@ const Shop = observer(() => {
     }, [])
 
     useEffect(() => {
-        fetchDevices(device.page, 3).then(data => {
+        fetchDevices(device.page, 9).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
     }, [device.page])
 
     return (
+        <div>
         <Container>
             <Row className="mt-2">
                 <Col md={9}>
@@ -34,6 +36,7 @@ const Shop = observer(() => {
                 </Col>
             </Row>
         </Container>
+        </div>
     );
 });
 

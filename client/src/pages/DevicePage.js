@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchOneDevice } from "../http/deviceAPI";
+import { css } from '@emotion/css';
 
 const DevicePage = () => {
   const [device, setDevice] = useState({description: []})
@@ -21,22 +22,70 @@ const DevicePage = () => {
           </Col>
           <Col md={4}>
             <Form className="d-flex flex-column align-items-center">
-              <h2>{device.name}</h2>
+            <Card style={{width: 350, cursor: 'pointer'}} border={'light'}>
+                    <div className={css`
+        background-color: #3a4963;;
+        padding: 32px;
+        font-size: 24px;
+        border-radius: 2px;
+        color: white;
+        font-family: cursive;
+        `}>{device.name}</div>
+            </Card>
             </Form>
           </Col>
           <Col md={4}>
             <Card 
-            className="d-flex flex-column align-items-center justify-content-around"
-            style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
+            className={css`
+            background-color: #3a4963;
+            padding: 32px;
+            font-size: 24px;
+            width: 300;
+            height: 300;
+            border: 0px;
+            border-radius: 2px;
+            text-align: center;
+            flex-direction: column;
+            color: white;
+            font-family: cursive;
+            `}
             >
               <h3>От: {device.price} руб.</h3>
-              <Button variant={'outline-dark'}>Добавить в корзину</Button>
+              <Button className={css`
+                            padding-top: 2px;
+                            padding-right: 27px;
+                            padding-bottom: 2px;
+                            padding-left: 27px;
+                            background-color: #33b0b3;
+                            font-size: 16px;
+                            border: 2px solid transparent;
+                            border-radius: 3px;
+                            color: white;
+                            &:hover {
+                              color: #33b0b3;
+                              background-color: #3a4963;
+                              border: 2px solid;
+                            }
+                          `}>Добавить в корзину</Button>
             </Card>
           </Col>
           </Row>
           <Row className="d-flex flex-column m-3">
-            <h1 style={{color: 'red'}}>Описание</h1>
-            <h2>{device.description}</h2>
+            <h1 className={css`
+        font-size: 24px;
+        color: white;
+        font-family: cursive;
+        `}>Описание</h1>
+            <Card style={{width: 1000, cursor: 'pointer'}} border={'light'}>
+                    <div className={css`
+        background-color: #3a4963;;
+        padding: 32px;
+        font-size: 16px;
+        border-radius: 2px;
+        color: white;
+        font-family: cursive;
+        `}>{device.description}</div>
+            </Card>
           </Row>
       </Container>
   );

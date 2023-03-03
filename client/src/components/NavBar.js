@@ -8,6 +8,8 @@ import {Button} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import Container from "react-bootstrap/Container";
 import {useHistory} from 'react-router-dom'
+import { css } from '@emotion/css';
+
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
@@ -17,9 +19,14 @@ const NavBar = observer(() => {
         user.setIsAuth(false)
         //токен удалить
     }
-
+//#3a4963;
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar className={css`
+        padding: 12px;
+        background-color: #33425a;
+        font-size: 20px;
+        font-family: cursive;
+        `}>
             <Container>
                 <NavLink style={{color:'white'}} to={SHOP_ROUTE}>The super vulnurable web apllication</NavLink>
                 {user.isAuth ?
@@ -40,7 +47,7 @@ const NavBar = observer(() => {
                     </Nav>
                     :
                     <Nav className="ml-auto" style={{color: 'white'}}>
-                        <Button variant={"outline-light"} onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
+                        <Button variant={"outline-light"}  onClick={() => history.push(LOGIN_ROUTE)} >Авторизация</Button>
                     </Nav>
                 }
             </Container>

@@ -4,6 +4,7 @@ import {Button, Form, Row, Col} from "react-bootstrap";
 import {Context} from "../../index";
 import {createDevice} from "../../http/deviceAPI";
 import {observer} from "mobx-react-lite";
+import { css } from '@emotion/css';
 
 const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
@@ -56,8 +57,8 @@ const CreateDevice = observer(({show, onHide}) => {
                         type="file"
                         onChange={selectFile}
                     />
-                    <hr/>
-                    <Form.Control
+                    <hr/>          
+                    <Form.Control as="textarea"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         className="mt-3"
