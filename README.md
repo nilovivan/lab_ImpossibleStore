@@ -1,2 +1,5 @@
-# Hacktory_lab
-The super vulnurable web apllication. PERN stack.
+# Не забудь поставить звезду
+
+## npm run dev - запуск сервера
+
+## npm start - запуск клиента

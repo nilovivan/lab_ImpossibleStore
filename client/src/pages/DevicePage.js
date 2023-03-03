@@ -6,8 +6,7 @@ import { useEffect } from "react";
 import { fetchOneDevice } from "../http/deviceAPI";
 
 const DevicePage = () => {
-  //Для теста использовать свои данные 
-  const [device, setDevice] = useState({info: []})
+  const [device, setDevice] = useState({description: []})
   const {id} = useParams()
 
   useEffect(() => {
@@ -36,12 +35,8 @@ const DevicePage = () => {
           </Col>
           </Row>
           <Row className="d-flex flex-column m-3">
-            <h1>Характеристики</h1>
-            {device.info.map((info, index )=>
-                <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
-                  {info.title}: {info.description}
-                </Row>
-              )}
+            <h1 style={{color: 'red'}}>Описание</h1>
+            <h2>{device.description}</h2>
           </Row>
       </Container>
   );
