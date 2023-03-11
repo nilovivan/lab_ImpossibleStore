@@ -58,6 +58,8 @@ class ProductController {
             next (ApiError.badRequest(e.message))
         }
     }
+
 }
+
 
 module.exports = new ProductController()
