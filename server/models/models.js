@@ -8,11 +8,11 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"},
 })
 
-const User_cart = sequelize.define('cart', {
+const Cart = sequelize.define('cart', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const Cart_product = sequelize.define('cart_product', {
+const CartProduct = sequelize.define('cartProduct', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
@@ -24,18 +24,19 @@ const Product = sequelize.define('product', {
     img: {type: DataTypes.STRING, allowNull: false},
 })
 
-User.hasOne(User_cart)
-User_cart.belongsTo(User)
+User.hasOne(Cart)
+Cart.belongsTo(User)
 
-User_cart.hasMany(Cart_product)
-Cart_product.belongsTo(User_cart)
+Product.hasMany(CartProduct)
+CartProduct.belongsTo(Product)
 
-Product.hasMany(Cart_product)
-Cart_product.belongsTo(Product)
+Cart.hasMany(CartProduct)
+CartProduct.belongsTo(Cart)
+
 
 module.exports = {
     User,
-    User_cart,
-    Cart_product,
+    Cart,
+    CartProduct,
     Product,
 }
