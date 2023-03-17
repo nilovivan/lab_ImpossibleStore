@@ -14,6 +14,12 @@ const DevicePage = () => {
       fetchOneDevice(id).then(data => setDevice(data));
   }, [])
 
+  const [cart,setCart] = useState([])
+    const AddToCart = (device) => {
+        setCart([...cart, device])
+        console.log(cart)
+    }
+
   return (
       <Container className="mt-3">
         <Row>
@@ -66,7 +72,9 @@ const DevicePage = () => {
                               background-color: #3a4963;
                               border: 2px solid;
                             }
-                          `}>Добавить в корзину</Button>
+                          `}
+                          onClick={ () => AddToCart(device)}
+                          >Добавить в корзину</Button>
             </Card>
           </Col>
           </Row>
