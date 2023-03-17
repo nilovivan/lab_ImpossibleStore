@@ -76,8 +76,7 @@ class UserController {
 
     async add_product(req, res, next) { // добавляем товар в корзину ползователя по id товара и пользователя
         try {
-            const {product} = req.body
-            const productId = product.id
+            const {productId} = req.body
             const token = parseJwt(req.headers.authorization.split(' ')[1])
             const email = token.email
             const user = await User.findOne({where: {email}})
@@ -93,8 +92,7 @@ class UserController {
 
     async remove_product(req, res, next) { // убираем товар из корзины пользователя по id товара
         try {
-            const {product} = req.body
-            const productId = product.id
+            const {productId} = req.body
             const token = parseJwt(req.headers.authorization.split(' ')[1])
             const email = token.email
             const user = await User.findOne({where: {email}})
