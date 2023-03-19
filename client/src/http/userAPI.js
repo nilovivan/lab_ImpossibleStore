@@ -18,3 +18,19 @@ export const check = async () => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
+
+export const add_to_cart = async (productId) => {
+    const {data} = await  $authHost.post('api/user/add-product-to-cart', {productId})
+    return data
+}
+
+export const cart_content = async () => {
+    const {data} = await  $authHost.get('api/user/cart-content')
+    return data
+}
+
+export const update_email = async (new_email, password) => {
+    const {data} = await  $authHost.post('api/user/change-email', {new_email,password})
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token)
+}

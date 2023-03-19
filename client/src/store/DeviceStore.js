@@ -3,12 +3,19 @@ import {makeAutoObservable} from "mobx";
 export default class DeviceStore {
     constructor() {
         this._devices = []
+        this._cart = []
         this._page = 1
         this._totalCount = 0
-        this._limit = 3
+        this._limit = 9
         makeAutoObservable(this)
     }
 
+    setCart(cart) {
+        this._cart = cart
+    }
+    get cart() {
+        return this._cart
+    }
     setDevices(devices) {
         this._devices = devices
     }

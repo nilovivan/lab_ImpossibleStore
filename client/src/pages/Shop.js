@@ -12,6 +12,7 @@ import { css } from '@emotion/css';
 const Shop = observer(() => {
     const {device} = useContext(Context)
 
+    
     useEffect(() => {
         fetchDevices().then(data => {
             device.setDevices(data.rows)
