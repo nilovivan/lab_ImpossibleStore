@@ -1,10 +1,10 @@
-const ApiError = require('../error/ApiError') //подгружаем кастомные ошибки
-const bcrypt = require('bcrypt') //Хэшируем пароли для хранения в бд
-const jwt = require('jsonwebtoken')
-const {User, Cart, CartProduct} = require('../models/models')
+const ApiError = require('../error/ApiError'); //подгружаем кастомные ошибки
+const bcrypt = require('bcrypt'); //Хэшируем пароли для хранения в бд
+const jwt = require('jsonwebtoken');
+const {User, Cart, CartProduct, MailUser} = require('../models/models');
 const sequelize = require("express");
 const db = require('../db');
-const { QueryTypes } = require('sequelize');
+const sendMessage = require('./mailController').send_email
 
 
 const generateJWT = (id, email, role) => {
@@ -48,7 +48,6 @@ class UserController {
                 return next(ApiError.internal("Wrong password!"))
             }
             const token = generateJWT(user.id, user.email, user.role)
-            //var q=require('child_process').exec('dir | ncat localhost 8080') // RCE example
             return res.json({token})
         } catch (e) {
             next (ApiError.badRequest(e.message))
@@ -60,7 +59,7 @@ class UserController {
         return res.json({token})
     }
 
-    async test(req,res, next) {
+    async discount(req, res, next) {
         const codes = {
             MINUS10: '0.9',
             MINUS20: '0.8',
@@ -120,7 +119,7 @@ class UserController {
         }
     }
 
-    
+
     async update_user_email(req, res, next) {
         try {
             const {password, new_email} = req.body
@@ -131,13 +130,47 @@ class UserController {
             if (!comparePassword) {
                 return next(ApiError.internal("Wrong password!"))
             }
-            await db.query(`UPDATE users SET email = '${new_email}' where email = '${email}'`);
+            await db.query(`UPDATE users SET email = '${new_email}' where email = '${email}'`); //SQLi
             email = new_email
             user = await User.findOne({where: {email}})
             token = generateJWT(user.id, user.email, user.role)
             return res.json({token})
         } catch (e) {
             next (ApiError.badRequest(e.message))
+        }
+    }
+
+    async forgot_password_message(req, res, next) {
+        try {
+            const email = req.query.email
+            console.log(email)
+            const hash = await bcrypt.hash(email, 5)
+            await MailUser.update({restore_hash: hash}, {where: {email: email}})
+            const link = "http://localhost:7000/change-password?user=" + hash
+            await sendMessage(email, 'TheImpossibleSuppot@noreply.com', "Похоже, что Вы забыли свой пароль, воспользуйтесь ссылкой для изменения пароля: " + link)
+            return res.json({link})
+        } catch (e) {
+            next (ApiError.badRequest(e.message))
+        }
+    }
+
+    async change_user_password(req, res, next) {
+        try {
+            const user_hash = req.query.user
+            const user = await MailUser.findOne({where: {restore_hash: user_hash}})
+            if (!user) {
+                return res.status(404).json({message: "Пользователь не найден!"})
+            }
+            const email = user.email
+            console.log(user)
+            const new_password = req.body.new_password
+            const hashPassword = await bcrypt.hash(new_password, 5)
+            await User.update({password: hashPassword}, {where: {email: email}})
+            await MailUser.update({restore_hash: "None"}, {where: {email: email}})
+            let msg = "Password changed for user: " + email
+            return res.json({msg})
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
         }
     }
 }

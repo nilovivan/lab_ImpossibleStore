@@ -24,6 +24,20 @@ const Product = sequelize.define('product', {
     img: {type: DataTypes.STRING, allowNull: false},
 })
 
+const MailUser = sequelize.define('mailUser', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    email: {type: DataTypes.STRING, unique: true,},
+    password: {type: DataTypes.STRING},
+    restore_hash: {type: DataTypes.STRING, defaultValue: "None"}
+})
+
+const Message = sequelize.define('message', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    from: {type: DataTypes.TEXT, allowNull:false},
+    to: {type: DataTypes.TEXT, allowNull:false},
+    text: {type: DataTypes.TEXT, allowNull:false},
+})
+
 User.hasOne(Cart)
 Cart.belongsTo(User)
 
@@ -33,10 +47,15 @@ CartProduct.belongsTo(Product)
 Cart.hasMany(CartProduct)
 CartProduct.belongsTo(Cart)
 
+MailUser.hasMany(Message)
+Message.belongsTo(MailUser)
+
 
 module.exports = {
     User,
     Cart,
     CartProduct,
     Product,
+    MailUser,
+    Message
 }
