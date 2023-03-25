@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError'); //подгружаем кастомные ошибки
 const bcrypt = require('bcrypt'); //Хэшируем пароли для хранения в бд
 const jwt = require('jsonwebtoken');
-const {User, Cart, CartProduct, MailUser} = require('../models/models');
+const {User, Cart, CartProduct, MailUser, Product} = require('../models/models');
 const sequelize = require("express");
 const db = require('../db');
 const sendMessage = require('./mailController').send_email
@@ -66,8 +66,21 @@ class UserController {
             MINUS30: '0.7'
         };
         try {
-            const {good, code} = req.body
-            return res.json({price: eval('good.price *' + ('codes.' + code))})
+            const token = parseJwt(req.headers.authorization.split(' ')[1])
+            const email = token.email
+            const user = await User.findOne({where: {email}})
+            const userCart = await Cart.findOne({where: {userId: user.id}})
+            let total = 0
+            const goods = await CartProduct.findAll({where: {cartId: userCart.id}})
+            for (let i = 0; i < goods.length; i++) {
+                let good = goods[i]
+                let pr = await Product.findOne({where: {id: good.productId}})
+                let price = pr.price
+                total += price
+            }
+            console.log(total)
+            const {code} = req.body
+            return res.json({price: eval('total *' + ('codes.' + code))})
         } catch (e) {
             next (ApiError.badRequest(e.message))
         }
