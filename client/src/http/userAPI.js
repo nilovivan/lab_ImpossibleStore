@@ -34,3 +34,8 @@ export const update_email = async (new_email, password) => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
+
+export const forgot_password = async (email) => {
+    const {data} = await  $authHost.post('api/user/reset-password', {email})
+    return data
+}

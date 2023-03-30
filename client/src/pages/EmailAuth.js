@@ -4,37 +4,36 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, RESET_PASSWORD_ROUTE, SHOP_ROUTE} from "../utils/consts";
-import {login, registration} from "../http/userAPI";
+import {EMAIL_ROUTE, EMAIL_LOGIN_ROUTE, EMAIL_REGISTRATION_ROUTE} from "../utils/consts";
+import {email_login, email_registration} from "../http/emailAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import { css } from '@emotion/css';
 
-const Auth = observer(() => {
-    const {user} = useContext(Context)
+const EmailAuth = observer(() => {
+    const {pochta} = useContext(Context)
     const location = useLocation()
     const history = useHistory()
-    const isLogin = location.pathname === LOGIN_ROUTE
+    const isEmailLogin = location.pathname === EMAIL_LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const click = async () => {
         try {
             let data;
-            if (isLogin) {
-                data = await login(email, password);
+            if (isEmailLogin) {
+                data = await email_login(email, password);
             } else {
-                data = await registration(email, password);
+                data = await email_registration(email, password);
             }
-            user.setUser(data)
-            user.setIsAuth(true)
-            history.push(SHOP_ROUTE)
+            pochta.setPochta(data)
+            pochta.setIsEmailAuth(true)
+            history.push(EMAIL_ROUTE)
         } catch (e) {
             alert(e.response.data.message)
         }
 
     }
-    
     return (
         <div className={css`
         background-color: #243248;
@@ -54,7 +53,7 @@ const Auth = observer(() => {
         text-align: center;
         font-family: cursive;
         font-size: 30px;
-        `}>{isLogin ? 'Авторизация' : "Регистрация"}</h2>
+        `}>{isEmailLogin ? 'Авторизация' : "Регистрация"}</h2>
                 <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"
@@ -70,34 +69,31 @@ const Auth = observer(() => {
                         type="password"
                     />
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
-                        {isLogin ?
+                        {isEmailLogin ?
                             <div style={{color: 'white'}} className={css`
                             font-size: 16px;
-                          `}>
-                               <NavLink to={REGISTRATION_ROUTE} className={css`
+                          `}>Нет аккаунта?
+             
+                            <NavLink to={EMAIL_REGISTRATION_ROUTE} className={css`
                             color:white;
                             &:hover {
                              color: #33b0b3;
                             }
-                          `}>Регистрация! </NavLink>
-                                <NavLink to={RESET_PASSWORD_ROUTE} className={css`
-                            color:white;
-                            &:hover {
-                             color: #33b0b3;
-                            }
-                          `}>Восстановление пароля</NavLink>
+                          `}> Зарегистрируйся!</NavLink>
                             </div>
                             :
                             <div style={{color: 'white'}} className={css`
                             font-size: 16px;
 
                           `}>
-                                Есть аккаунт? <NavLink to={LOGIN_ROUTE} className={css`
+                                Есть аккаунт? 
+                                
+                                <NavLink to={EMAIL_LOGIN_ROUTE} className={css`
                             color:white;
                             &:hover {
                              color: #33b0b3;
                             }
-                          `}>Ввойдите!</NavLink>
+                          `}> Войдите!</NavLink>
                             </div>
                         }
                         <Button
@@ -119,7 +115,7 @@ const Auth = observer(() => {
                           `}
                             onClick={click}
                         >
-                            {isLogin ? 'Войти' : 'Регистрация'}
+                            {isEmailLogin ? 'Войти' : 'Регистрация'}
                         </Button>
                     </Row>
 
@@ -130,4 +126,4 @@ const Auth = observer(() => {
     );
 });
 
-export default Auth;
+export default EmailAuth;

@@ -9,6 +9,7 @@ import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
     const {user} = useContext(Context)
+    const {pochta} = useContext(Context)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

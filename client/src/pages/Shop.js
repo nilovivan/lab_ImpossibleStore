@@ -8,10 +8,10 @@ import {Context} from "../index";
 import {fetchDevices} from "../http/deviceAPI";
 import Pages from "../components/Pages";
 import { css } from '@emotion/css';
+import { useState } from 'react';
 
 const Shop = observer(() => {
     const {device} = useContext(Context)
-
     
     useEffect(() => {
         fetchDevices().then(data => {
