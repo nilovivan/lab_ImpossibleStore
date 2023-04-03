@@ -16,6 +16,10 @@ function parseJwt (token) {
 }
 
 class MailController {
+    async check(req,res, next) {
+        const token = generateJWT(req.user.id, req.user.email)
+        return res.json({token})
+    }
 
     async get_emails(req, res, next) {
         try {
