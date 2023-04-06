@@ -1,6 +1,6 @@
 FROM node:19.6.0-alpine
 WORKDIR /client
-COPY package*.json /client
+COPY package*.json /client/
 RUN npm install
 COPY . /client/
 
