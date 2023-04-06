@@ -5,26 +5,24 @@ import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchOneDevice } from "../http/deviceAPI";
 import { css } from '@emotion/css';
-import { add_to_cart } from "../http/userAPI";
+import { add_to_cart, remove_from_cart } from "../http/userAPI";
 import { BASKET_ROUTE } from "../utils/consts";
 import { useContext } from "react";
 import { Context } from "..";
 
 const DevicePage = () => {
   const [device, setDevice] = useState({description: []})
-  const {id} = useParams()
+  const {id} = useParams() 
 
   useEffect(() => {
       fetchOneDevice(id).then(data => setDevice(data)
       );
-      console.log(device)
   }, [])
 
   const history = useHistory()
   const AddToCart = async () => {
     try {
-        add_to_cart(id).then(data => setDevice(data));
-        history.push(BASKET_ROUTE)
+        remove_from_cart(id);
     } catch (e) {
         alert(e.response.data.message)
     }
