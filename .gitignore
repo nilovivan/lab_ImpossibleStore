@@ -2,4 +2,4 @@
 /server/node_modules/*
 /client/package-lock.json
 /server/static/*
-/server/.env
+/server/\.env
