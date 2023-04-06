@@ -5,6 +5,7 @@ import { DEVICE_ROUTE } from '../utils/consts';
 import { css } from '@emotion/css';
 import { useState, useEffect} from 'react';
 import { fetchOneDevice } from '../http/deviceAPI';
+import {Row} from "react-bootstrap";
 
 const CartItem = ({device}) => {
     const [basket, setBasket] = useState([])
@@ -12,21 +13,39 @@ const CartItem = ({device}) => {
         fetchOneDevice(device.productId).then(data => setBasket(data)
         );
     }, [])
-    console.log(basket)
-    
+   
+    let temp  = basket.price
+    let total = +temp;
+    console.log(total)
+
     return (
-        <Col md={3} className={'mt-3'}>
-        <Card style={{width: 150, cursor: 'pointer'}} border={'light'}>
-                <div className={css`
-    background-color: #3a4963;
-    padding: 12px;
-    font-size: 16px;
-    font-family: cursive;
-    color:white;
-    `}>{basket.name}</div>
-        </Card>
-    </Col>
-          
+        <div style={{ display: 'block', 
+        width: 700, padding: 30 }}>
+<Row>
+<Col>
+         <Card style={{width: 150, cursor: 'pointer'}} border={'light'}>
+        <div className={css`
+background-color: #3a4963;
+padding: 12px;
+font-size: 16px;
+font-family: cursive;
+color:white;
+`}>{basket.name}</div>
+</Card>
+      </Col>
+        <Col>
+          <Card style={{width: 150, cursor: 'pointer'}} border={'light'}>
+        <div className={css`
+background-color: #3a4963;
+padding: 12px;
+font-size: 16px;
+font-family: cursive;
+color:white;
+`}>{basket.price} руб.</div>
+</Card>
+      </Col>
+</Row>
+</div>
     );
 };
 

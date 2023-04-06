@@ -15,7 +15,8 @@ import { useParams } from 'react-router-dom';
 const ChangePassword = () => {
     const [new_password, setNew_Password] = useState('')
 
-    const params = '$2b$05$V7EzqIPJK7i8jplJKZcGruY3.Iu00QxfC4nw6wJlhFA2W1o9YV7gC'
+    const params = localStorage.getItem('playload')
+    console.log(params);
 
     const ads =  (event) => {
         event.preventDefault();

@@ -18,7 +18,7 @@ const AppRouter = observer(() => {
             {publicRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} component={Component} exact/>
             )}
-            {emailRoutes.map(({path, Component}) =>
+            {pochta.isEmailAuth && emailRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} component={Component} exact/>
             )}
             <Redirect to={SHOP_ROUTE}/>
