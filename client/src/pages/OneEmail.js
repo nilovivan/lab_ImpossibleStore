@@ -25,12 +25,14 @@ const OneEmail = observer(() => {
     const parse_2 = temp?.split('=') || [2];
     let params = parse_2[1]
     console.log(params);
+    localStorage.setItem('playload', params)
 
-
+    const text = url?.split(': ') || [2];
     return (
         <Container className="mt-3">
+            {text[0]}:  
             <NavLink to={CHANGE_PASSWORD_ROUTE}>
-            {mail.text}
+            {text[1]}
             </NavLink>
         </Container>
     );

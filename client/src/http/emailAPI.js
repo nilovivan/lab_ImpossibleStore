@@ -23,8 +23,8 @@ export const fetchOneMessage = async (id) => {
     return data
 }
 
-/*export const check = async () => {
-    const {data} = await  $authHost.get('api/user/auth')
-    localStorage.setItem('token', data.token)
+export const check_email = async () => {
+    const {data} = await  $authEmailHost.get('api/mail/auth')
+    localStorage.setItem('email_token', data.token)
     return jwt_decode(data.token)
-}*/
+}

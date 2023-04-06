@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { Context } from '..';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { cart_content } from '../http/userAPI';
-import { Container } from 'react-bootstrap';
+import { cart_content, discount } from '../http/userAPI';
+import { Container, Toast } from 'react-bootstrap';
 import CartList from '../components/CartList';
 import { fetchDevices, fetchOneDevice } from '../http/deviceAPI';
 import { useParams } from 'react-router-dom';
@@ -18,31 +18,29 @@ const Basket = () => {
             device.setCart(data.goods)
         })
     }, [])
-    console.log(device)
-    
 
+    const [code, setCode] = useState();
+    const [total, setTotal] = useState();
 
-    const [data, setData] = useState();
+    const total_price = async () => {
+        discount(code).then(data => {
+            setTotal(data.price)
+        })
+    }
 
-    const handleType = (e) => {
-        setData(e.target.value);
-    };
-
-    const handleSubmit = () => {
-        eval(data);
-    };
+    console.log(total)
 
     return (
         <div>
             <Container>
             <CartList/>
             <input
-                placeholder='Введите реферальную ссылку'
+                placeholder='Введите скидку'
                 type='text'
-                value={data}
-                onChange={(e) => handleType(e)}
+                value={code}
+                onChange={e => setCode(e.target.value)}
             />
-            <button onClick={() => handleSubmit()} className="button">Submit</button>
+            <button onClick={() => total_price()} className="button">Submit</button>
             </Container>
         </div>
     );

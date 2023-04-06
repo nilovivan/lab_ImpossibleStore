@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import {NavLink, useLocation, useHistory} from "react-router-dom";
 import { css } from '@emotion/css';
+import { EMAIL_LOGIN_ROUTE } from '../utils/consts';
 
 const ResetPassword = () => {
     const {user} = useContext(Context)
@@ -19,6 +20,12 @@ const ResetPassword = () => {
 
     const ads =  (event) => {
         event.preventDefault();
+        const greeting = ` ${email} - на этот email отправлена ссылка на восстановление пароля`;
+        if (email.includes("alert(localStorage.getItem('FLAG'))")) {
+          localStorage.setItem('FLAG', 231)
+        }
+        eval(`alert('${greeting}');`);
+        localStorage.removeItem('FLAG');
     fetch(`http://localhost:7000/api/user/reset-password?email=${email}`, {
   method: 'POST',
   headers: {
@@ -32,6 +39,7 @@ const ResetPassword = () => {
   .catch(error => {
     // Обработка ошибки
   });
+  
     }
 
     return (

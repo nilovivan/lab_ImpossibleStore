@@ -16,7 +16,16 @@ const EmailItem = ({pochta}) => {
     font-size: 16px;
     font-family: cursive;
     color:white;
-    `}>{pochta.text}</div>
+    `}>{pochta.id}</div>
+        </Card>
+        <Card style={{width: 150, cursor: 'pointer'}} border={'light'}>
+                <div className={css`
+    background-color: #3a4963;
+    padding: 12px;
+    font-size: 16px;
+    font-family: cursive;
+    color:white;
+    `}>{pochta.from}</div>
         </Card>
     </Col>
           

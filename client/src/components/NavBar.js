@@ -12,6 +12,7 @@ import { css } from '@emotion/css';
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
+    const {pochta} = useContext(Context)
     const history = useHistory()
 
     const logOut = () => {
@@ -19,7 +20,12 @@ const NavBar = observer(() => {
         user.setIsAuth(false)
         localStorage.removeItem('token')
     }
-//#3a4963;
+    const EmaillogOut = () => {
+        pochta.setPochta({})
+        pochta.setIsEmailAuth(false)
+        localStorage.removeItem('email_token')
+    }
+
     return (
         <Navbar className={css`
         padding: 12px;
@@ -60,11 +66,21 @@ const NavBar = observer(() => {
                         </Button>
                     </Nav>
                     :
+                    pochta.isEmailAuth ?
+                    <Button
+                            variant={"outline-light"}
+                            onClick={() => EmaillogOut()}
+                            className="ml-2"
+                        >
+                            Выйти
+                        </Button>
+                    :
                     <Nav className="ml-auto" style={{color: 'white'}}>
                         <Button variant={"outline-light"}  onClick={() => history.push(LOGIN_ROUTE)} >Авторизация</Button>
                         <Button variant={"outline-light"} className="ml-2" onClick={() => history.push(EMAIL_LOGIN_ROUTE)} >Почта</Button>
                     </Nav>
-                }
+                    }
+                
             </Container>
         </Navbar>
 

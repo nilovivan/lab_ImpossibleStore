@@ -2,7 +2,7 @@ import { $host, $authHost } from "./index";
 import jwt_decode from "jwt-decode";
 
 export const registration = async (email, password) => {
-    const {data} = await  $host.post('api/user/registration', { email,password, role: 'ADMIN'})
+    const {data} = await  $host.post('api/user/registration', { email,password, role: 'USER'})
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
@@ -29,13 +29,14 @@ export const cart_content = async () => {
     return data
 }
 
+export const discount = async (code) => {
+    const {data} = await  $authHost.post('api/user/discount', {code})
+    return data
+}
+
 export const update_email = async (new_email, password) => {
     const {data} = await  $authHost.post('api/user/change-email', {new_email,password})
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
 
-export const forgot_password = async (email) => {
-    const {data} = await  $authHost.post('api/user/reset-password', {email})
-    return data
-}
