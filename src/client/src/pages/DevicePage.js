@@ -22,7 +22,7 @@ const DevicePage = () => {
   const history = useHistory()
   const AddToCart = async () => {
     try {
-        remove_from_cart(id);
+       add_to_cart(id);
     } catch (e) {
         alert(e.response.data.message)
     }
