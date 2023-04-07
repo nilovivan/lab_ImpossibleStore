@@ -2,7 +2,7 @@
 
 ## Запуск проекта выполняется через Docker
 
-### Для запускавыполните docker-compose build && docker-compose up в директории deploy
+### Для запуска выполните docker-compose build && docker-compose up в директории deploy
 
 ### Для отдельного запуска сервисов используйте следующие команды, предварительно выполнив npm install в /client и /server:
 
