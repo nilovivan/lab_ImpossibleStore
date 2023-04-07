@@ -4,8 +4,8 @@ services:
   server:
     container_name: server
     env_file:
-      - /server/.env
-    build: ./server
+      - ../src/server/.env
+    build: ../src/server
     ports:
       - 7000:7000
     depends_on:
@@ -14,8 +14,8 @@ services:
   client:
     container_name: client
     env_file:
-      - /client/.env
-    build: ./client
+      - ../src/client/.env
+    build: ../src/client
     ports:
       - 3000:3000
     restart: always
