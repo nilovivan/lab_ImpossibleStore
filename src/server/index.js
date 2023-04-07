@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
-const models = require('./models/models.js')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
@@ -21,7 +20,7 @@ app.use('/api', router)
 app.use(errorHandler)
 
 app.get('/', (req, res) => {
-    res.status(200).json({message: 'WORKING!!!'})
+    res.status(200).json({message: 'Welcome to ImpossibleStoreAPI'})
 })
 
 
