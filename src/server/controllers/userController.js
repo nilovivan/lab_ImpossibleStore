@@ -77,7 +77,6 @@ class UserController {
                 let price = pr.price
                 total += price
             }
-            console.log(total)
             const {code} = req.body
             return res.json({price: eval('total *' + ('codes.' + code))})
         } catch (e) {
