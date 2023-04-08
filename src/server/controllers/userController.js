@@ -2,7 +2,6 @@ const ApiError = require('../error/ApiError'); //подгружаем касто
 const bcrypt = require('bcrypt'); //Хэшируем пароли для хранения в бд
 const jwt = require('jsonwebtoken');
 const {User, Cart, CartProduct, MailUser, Product} = require('../models/models');
-const sequelize = require("express");
 const db = require('../db');
 const sendMessage = require('./mailController').send_email
 
