@@ -11,12 +11,12 @@ import { css } from '@emotion/css';
 import { useEffect } from 'react';
 import { fetchOneMessage } from '../http/emailAPI';
 import { useParams } from 'react-router-dom';
+import { EMAIL_ROUTE } from '../utils/consts';
 
 const ChangePassword = () => {
     const [new_password, setNew_Password] = useState('')
-
+    const history = useHistory()
     const params = localStorage.getItem('playload')
-    console.log(params);
 
     const ads =  (event) => {
         event.preventDefault();
@@ -30,11 +30,17 @@ const ChangePassword = () => {
     })
     })
     .then(response => {
-    console.log(response)
+    if (response.status === 404) {
+        alert('Ссылка не действительна')
+        localStorage.removeItem('playload');
+    } else {
+        alert("Пароль поменян")
+        localStorage.removeItem('playload');
+    }
     })
     .catch(error => {
-    // Обработка ошибки
     });
+    history.push(EMAIL_ROUTE)
     }
 
     return (

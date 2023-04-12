@@ -9,16 +9,26 @@ import {login, registration, update_email} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import { css } from '@emotion/css';
+import { useEffect } from 'react';
 
 const PersonalCabinet = observer(() => {
     const {user} = useContext(Context)
     const location = useLocation()
     const history = useHistory()
-    const [OldEmail, setOldEmail] = useState('')
+    const [text, setText] = useState('')
     const [new_email, setNewEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    
+    useEffect(() => {
+        if (user.user) {
+          if (user.user.role === 'ADMIN') {
+            setText('flag{1ts_n0t_y0ur_3ma1l}')
+          } else {
+            setText(`Ваш email - ${user.user.email}`)
+          }
+        }
+      }, [user])
+      
     const Update = async () => {
         try {
             let data;
@@ -47,7 +57,7 @@ const PersonalCabinet = observer(() => {
         text-align: center;
         font-family: cursive;
         font-size: 30px;
-        `}>Ваш email - {user.user.email}</h2>
+        `}>{text}</h2>
                 <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"

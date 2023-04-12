@@ -53,7 +53,7 @@ const EmailAuth = observer(() => {
         text-align: center;
         font-family: cursive;
         font-size: 30px;
-        `}>{isEmailLogin ? 'Авторизация' : "Регистрация"}</h2>
+        `}>{isEmailLogin ? 'Авторизация ' : "Регистрация"}</h2>
                 <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"

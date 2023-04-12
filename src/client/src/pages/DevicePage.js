@@ -19,7 +19,7 @@ const DevicePage = () => {
       );
   }, [])
 
-  const history = useHistory()
+  
   const AddToCart = async () => {
     try {
        add_to_cart(id);

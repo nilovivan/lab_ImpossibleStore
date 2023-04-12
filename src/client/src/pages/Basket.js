@@ -8,6 +8,11 @@ import { Container, Toast } from 'react-bootstrap';
 import { fetchDevices, fetchOneDevice } from '../http/deviceAPI';
 import { useParams } from 'react-router-dom';
 import { add_to_cart, remove_from_cart } from "../http/userAPI";
+import { Card} from "react-bootstrap";
+import { css } from '@emotion/css';
+import { Form } from 'react-bootstrap';
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 const Basket = () => {
 
@@ -67,9 +72,15 @@ const Basket = () => {
     return (
         <div>
             <Container>
-            <div>
-      <table>
-        <thead>
+      <table className={css`
+            padding: 122px;
+            margin-top: 20px;
+            font-size: 24px;
+            border-radius: 4px;
+            color: white;
+            font-family: cursive;
+            `}>
+        <thead >
           <tr>
             <th>Имя</th>
             <th>Цена</th>
@@ -81,22 +92,90 @@ const Basket = () => {
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.price}</td>
-              <button onClick={() => handleCountChange(item.id, 'dec')}>-</button>
-                {item.count}
-                <button onClick={() => handleCountChange(item.id, 'inc')}>+</button>
+              <button onClick={() => handleCountChange(item.id, 'dec')} className={css`
+                            padding-top: 2px;
+                            padding-right: 27px;
+                            padding-bottom: 2px;
+                            padding-left: 27px;
+                            margin-left: 12px;
+                            margin-right: 12px;
+                            background-color: #33b0b3;
+                            font-size: 16px;
+                            border: 2px solid transparent;
+                            border-radius: 3px;
+                            color: white;
+                            &:hover {
+                              color: #33b0b3;
+                              background-color: #243248;
+                              border: 2px solid;
+                            }
+                          `}>-</button>
+              {item.count}
+                <button onClick={() => handleCountChange(item.id, 'inc')} className={css`
+                            padding-top: 2px;
+                            padding-right: 27px;
+                            padding-bottom: 2px;
+                            padding-left: 27px;
+                            margin-left: 12px;
+                            background-color: #33b0b3;
+                            font-size: 16px;
+                            border: 2px solid transparent;
+                            border-radius: 3px;
+                            color: white;
+                            &:hover {
+                              color: #33b0b3;
+                              background-color: #243248;
+                              border: 2px solid;
+                            }
+                          `}>+</button>
             </tr>
+            
           ))}
         </tbody>
       </table>
-      <p>Сумма: {total}</p>
-    </div>
-            <input
+      <p className={css`
+            font-size: 24px;
+            border-radius: 4px;
+            color: white;
+            font-family: cursive;
+            `}>Сумма: {total}</p>
+      <Card style={{width: 400}} className={css`
+        background-color: #33425a;
+        padding-top: 6px;
+        padding-right: 17px;
+        padding-bottom: 12px;
+        padding-left: 17px;
+        font-size: 24px;
+        border-radius: 4px;
+        font-family: cursive;
+        `}>
+            <Form.Control
+                className="mt-3"
                 placeholder='Введите скидку'
                 type='text'
                 value={code}
                 onChange={e => setCode(e.target.value)}
-            />
-            <button onClick={() => total_price()} className="button">Submit</button>
+                    />
+            <Button style={{width: 150}} onClick={() => total_price()} className={css`
+                            margin-top: 12px;
+                            padding-top: 2px;
+                            padding-right: 27px;
+                            padding-bottom: 2px;
+                            padding-left: 27px;
+                            align-self: flex-end;
+                            background-color: #33b0b3;
+                            font-size: 16px;
+                            border: 2px solid transparent;
+                            border-radius: 3px;
+                            color: white;
+                            &:hover {
+                              color: #33b0b3;
+                              background-color: #3a4963;
+                              border: 2px solid;
+                            }
+                          `}>Submit</Button>
+
+                          </Card>
             </Container>
         </div>
     );

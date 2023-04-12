@@ -34,7 +34,7 @@ const NavBar = observer(() => {
         font-family: cursive;
         `}>
             <Container>
-                <NavLink style={{color:'white'}} to={SHOP_ROUTE}>The super vulnurable web apllication</NavLink>
+                <NavLink style={{color:'white'}} to={SHOP_ROUTE}>The super vulnurable web application</NavLink>
                 {user.isAuth ?
                     <Nav className="ml-auto" style={{color: 'white'}}>
                         <Button

@@ -21,11 +21,11 @@ const ResetPassword = () => {
     const ads =  (event) => {
         event.preventDefault();
         const greeting = ` ${email} - на этот email отправлена ссылка на восстановление пароля`;
-        if (email.includes("alert(localStorage.getItem('FLAG'))")) {
-          localStorage.setItem('FLAG', 231)
+        if (email.includes("alert(localStorage.getItem('Flag'))")) {
+          localStorage.setItem('Flag', 'flag{th3re_1s_n0t_xs5}')
         }
         eval(`alert('${greeting}');`);
-        localStorage.removeItem('FLAG');
+        localStorage.removeItem('Flag');
     fetch(`http://localhost:7000/api/user/reset-password?email=${email}`, {
   method: 'POST',
   headers: {
@@ -39,7 +39,7 @@ const ResetPassword = () => {
   .catch(error => {
     // Обработка ошибки
   });
-  
+  history.push(EMAIL_LOGIN_ROUTE)
     }
 
     return (

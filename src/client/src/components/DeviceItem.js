@@ -9,7 +9,7 @@ const DeviceItem = ({device}) => {
     
     return (
         <Col md={3} className={'mt-3'} onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}>
-            <Card style={{width: 150, cursor: 'pointer'}} border={'light'}>
+            <Card style={{width: 150, cursor: 'pointer'}} border={'dark'}>
                 <Image width={150} height={150} src={process.env.REACT_APP_API_URL + device.img}/>
                     <div className={css`
         background-color: #3a4963;

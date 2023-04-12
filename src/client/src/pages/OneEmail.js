@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 import { fetchOneMessage } from '../http/emailAPI';
 import { useContext } from 'react';
 import { Context } from '..';
-import EmailList from '../components/EmailList';
 import { useState } from 'react';
 import { useParams,NavLink } from 'react-router-dom';
 import { CHANGE_PASSWORD_ROUTE } from '../utils/consts';
+import { css } from '@emotion/css';
 
 const OneEmail = observer(() => {
     const [mail, setMail] = useState([])
@@ -29,7 +29,12 @@ const OneEmail = observer(() => {
 
     const text = url?.split(': ') || [2];
     return (
-        <Container className="mt-3">
+        <Container className={css`
+        margin-top:12px;
+        font-size: 24px;
+        color: white;
+        font-family: cursive;
+        `}>
             {text[0]}:  
             <NavLink to={CHANGE_PASSWORD_ROUTE}>
             {text[1]}
