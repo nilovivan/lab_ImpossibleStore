@@ -9,8 +9,10 @@ services:
     ports:
       - '3000:3000'
     restart: always
+
   postgres:
     image: postgres:14.1-alpine
+    container_name: postgresql
     restart: always
     user: postgres
     environment:
@@ -24,6 +26,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+
   server:
     container_name: server
     env_file:
