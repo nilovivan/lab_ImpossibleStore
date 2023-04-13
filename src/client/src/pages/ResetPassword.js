@@ -22,7 +22,7 @@ const ResetPassword = () => {
         event.preventDefault();
         const greeting = ` ${email} - на этот email отправлена ссылка на восстановление пароля`;
         if (email.includes("alert(localStorage.getItem('Flag'))")) {
-          localStorage.setItem('Flag', 'flag{th3re_1s_n0t_xs5}')
+          localStorage.setItem('Flag', 'flag_1tsn0tth3reX5S21')
         }
         eval(`alert('${greeting}');`);
         localStorage.removeItem('Flag');
