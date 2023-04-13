@@ -154,7 +154,6 @@ class UserController {
     async forgot_password_message(req, res, next) {
         try {
             const email = req.query.email
-            console.log(email)
             const hash = await bcrypt.hash(email, 5)
             await MailUser.update({restore_hash: hash}, {where: {email: email}})
             const link = "http://localhost:7000/change-password?user=" + hash
@@ -173,7 +172,6 @@ class UserController {
                 return res.status(404).json({message: "Пользователь не найден!"})
             }
             const email = user.email
-            console.log(user)
             const new_password = req.body.new_password
             const hashPassword = await bcrypt.hash(new_password, 5)
             await User.update({password: hashPassword}, {where: {email: email}})
