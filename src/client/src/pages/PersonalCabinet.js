@@ -21,7 +21,7 @@ const PersonalCabinet = observer(() => {
 
     useEffect(() => {
         if (user.user) {
-          if (user.user.role === 'ADMIN') {
+          if (user.user.role === 'FLAG') {
             setText('flag{1ts_n0t_y0ur_3ma1l}')
           } else {
             setText(`Ваш email - ${user.user.email}`)
