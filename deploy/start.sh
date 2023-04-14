@@ -1,10 +1,17 @@
 #!/bin/bash
 docker-compose build
 docker-compose up &
-RET=$(docker cp ../src/db/backup.sql postgresql:/db.sql 2>&1)
-while echo "$RET" | grep -q "Error"; do
-        echo 'waiting for db to start..'
-        sleep 5
-        RET=$(docker cp ../src/db/backup.sql postgresql:/db.sql 2>&1)
+docker cp ../src/db/backup.sql postgresql:/db.sql > /dev/null
+while [ $? -eq  1 ]
+do
+        echo "waiting for container startup.."
+        sleep 10
+        docker cp ../src/db/backup.sql postgresql:/db.sql > /dev/null
 done
 docker exec -i postgresql pg_restore -d postgres db.sql
+while [ $? -eq  1 ]
+do
+        echo "waiting for db startup.."
+        sleep 10
+        docker exec -i postgresql pg_restore -d postgres db.sql
+done
